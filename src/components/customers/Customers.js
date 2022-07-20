@@ -68,9 +68,13 @@ function Customers() {
   };
 
   if (!isLoaded) {
-    return <div>Loading...</div>;
+    return <div className="text-center fs-4 m-4">Loading...</div>;
   } else if (error) {
-    return <div>Error: {error.message}</div>;
+    return (
+      <div className="text-center fs-4 m-4 text-danger">
+        Error: {error.message}
+      </div>
+    );
   } else {
     return (
       <div>

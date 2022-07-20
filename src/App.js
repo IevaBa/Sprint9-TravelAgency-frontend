@@ -6,6 +6,7 @@ import AddHotel from "./components/hotels/AddHotel";
 import Hotels from "./components/hotels/Hotels";
 import Customers from "./components/customers/Customers";
 import AddCustomer from "./components/customers/AddCustomer";
+import "./App.css";
 
 function App() {
   return (

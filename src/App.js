@@ -10,7 +10,8 @@ import "./App.css";
 import EditCountry from "./components/countries/EditCountry";
 import EditCustomer from "./components/customers/EditCustomer";
 import EditHotel from "./components/hotels/EditHotel";
-import Login from "./components/login/Login";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/customers/add" element={<AddCustomer />} />
         <Route path="/customers/edit/:id" element={<EditCustomer />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );

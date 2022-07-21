@@ -90,7 +90,7 @@ const Header = () => {
           </li>
           <li className="text-center">
             <button className="btn btn-secondary" onClick={logout}>
-              Lougout
+              Logout
             </button>
           </li>
         </ul>

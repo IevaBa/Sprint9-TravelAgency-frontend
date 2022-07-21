@@ -32,9 +32,6 @@ export default function Login() {
       <form className="login-form text-white" onSubmit={handleSubmit}>
         <div className="form-group">
           <h2 className="mb-4 text-center fw-bold">Login</h2>
-          <label className="pt-2" htmlFor="exampleInputEmail1">
-            Email address
-          </label>
           <input
             type="email"
             className="form-control mt-2 px-2"
@@ -46,16 +43,13 @@ export default function Login() {
             We'll never share your email with anyone else.
           </small>
         </div>
-        <div className="form-group">
-          <label className="pt-2" htmlFor="pass">
-            Password
-          </label>
+        <div className="form-group mt-4">
           <input
             type="password"
-            className="form-control mt-2 px-2 mb-3"
+            className="form-control mt-2 px-2 mb-2"
             id="pass"
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
+            placeholder="Enter password"
           />
         </div>
         <br />

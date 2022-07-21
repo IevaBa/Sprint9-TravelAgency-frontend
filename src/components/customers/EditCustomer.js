@@ -14,6 +14,7 @@ export default function EditCustomer() {
   const [hotel_id, setHotel] = useState("");
   const [hotels, setHotels] = useState([]);
   const [validationError, setValidationError] = useState({});
+  const [token, _] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
     fetchCustomer();
@@ -22,7 +23,12 @@ export default function EditCustomer() {
 
   // Fetch hotels
   useEffect(() => {
-    fetch("http://localhost:8000/api/hotels")
+    fetch("http://localhost:8000/api/hotels", {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((result) => {
         //  console.log(result);
@@ -32,7 +38,12 @@ export default function EditCustomer() {
 
   const fetchCustomer = async () => {
     await axios
-      .get(`http://localhost:8000/api/customers/${id}`)
+      .get(`http://localhost:8000/api/customers/${id}`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         const { name, surname, email, phone, hotel_id } = data;
         setName(name);
@@ -55,7 +66,12 @@ export default function EditCustomer() {
     formData.append("hotel_id", hotel_id);
 
     await axios
-      .post(`http://localhost:8000/api/customers/${id}`, formData)
+      .post(`http://localhost:8000/api/customers/${id}`, formData, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         Swal.fire({
           icon: "success",

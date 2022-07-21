@@ -9,6 +9,7 @@ function AddCountry() {
   const [season, setSeason] = useState("");
   const navigate = useNavigate();
   const [validationError, setValidationError] = useState({});
+  const [token, _] = useState(localStorage.getItem("token"));
 
   const addCountry = async (e) => {
     e.preventDefault();
@@ -19,7 +20,12 @@ function AddCountry() {
     formData.append("season", season);
 
     await axios
-      .post(`http://localhost:8000/api/countries`, formData)
+      .post(`http://localhost:8000/api/countries`, formData, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         Swal.fire({
           icon: "success",

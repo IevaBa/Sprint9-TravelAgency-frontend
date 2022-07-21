@@ -7,13 +7,24 @@ function Hotels(props) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [hotels, setHotels] = useState([]);
+  const [token, _] = useState(localStorage.getItem("token"));
 
   const navigate = useNavigate();
 
   // LIST HOTELS
   useEffect(() => {
-    fetch("http://localhost:8000/api/hotels")
-      .then((res) => res.json())
+    if (!token) return navigate("/login");
+    let h = { Accept: "application/json", Authorization: `Bearer ${token}` };
+    fetch("http://localhost:8000/api/hotels", { headers: h })
+      .then((res) => {
+        if (!res.ok) {
+          // 401
+          setError(res);
+          setIsLoaded(true);
+        } else {
+          return res.json();
+        }
+      })
       .then(
         (result) => {
           //  console.log(result);
@@ -29,9 +40,14 @@ function Hotels(props) {
 
   // DELETE
   const fetchHotels = async () => {
-    await axios.get(`http://localhost:8000/api/hotels`).then(({ data }) => {
-      setHotels(data);
-    });
+    let h = { Accept: "application/json", Authorization: `Bearer ${token}` };
+    await axios
+      .get(`http://localhost:8000/api/hotels`, {
+        headers: h,
+      })
+      .then(({ data }) => {
+        setHotels(data);
+      });
   };
   const deleteHotel = async (id) => {
     const isConfirm = await Swal.fire({
@@ -51,7 +67,12 @@ function Hotels(props) {
     }
 
     await axios
-      .delete(`http://localhost:8000/api/hotels/${id}`)
+      .delete(`http://localhost:8000/api/hotels/${id}`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         Swal.fire({
           icon: "success",
@@ -79,7 +100,7 @@ function Hotels(props) {
     return (
       <div>
         <button
-          className="btn btn-success col-md-4 offset-md-4 py-2 my-3"
+          className="btn btn-success col-md-4 offset-md-4 py-2 mt-4 my-2"
           onClick={() => navigate("/hotels/add")}
         >
           Add Hotel

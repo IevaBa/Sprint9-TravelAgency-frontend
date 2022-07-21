@@ -13,10 +13,16 @@ function AddCustomer(props) {
   const [hotels, setHotels] = useState([]);
   const navigate = useNavigate();
   const [validationError, setValidationError] = useState({});
+  const [token, _] = useState(localStorage.getItem("token"));
 
   // Fetch hotels
   useEffect(() => {
-    fetch("http://localhost:8000/api/hotels")
+    fetch("http://localhost:8000/api/hotels", {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((result) => {
         //  console.log(result);
@@ -35,7 +41,12 @@ function AddCustomer(props) {
     formData.append("hotel_id", hotel_id);
 
     await axios
-      .post(`http://localhost:8000/api/customers`, formData)
+      .post(`http://localhost:8000/api/customers`, formData, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         Swal.fire({
           icon: "success",
@@ -48,7 +59,7 @@ function AddCustomer(props) {
           setValidationError(response.data.errors);
         } else {
           Swal.fire({
-            text: response.data.message,
+            text: response.data.error,
             icon: "error",
           });
         }

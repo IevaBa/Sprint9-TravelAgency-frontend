@@ -9,18 +9,29 @@ function Countries(props) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [countries, setCountries] = useState([]);
+  const [token, _] = useState(localStorage.getItem("token"));
 
   const navigate = useNavigate();
 
   // LIST COUNTRIES
   useEffect(() => {
-    fetch("http://localhost:8000/api/countries")
-      .then((res) => res.json())
+    if (!token) return navigate("/login");
+    let h = { Accept: "application/json", Authorization: `Bearer ${token}` };
+    fetch("http://localhost:8000/api/countries", { headers: h })
+      .then((res) => {
+        if (!res.ok) {
+          // 401
+          setError(res);
+          setIsLoaded(true);
+        } else {
+          return res.json();
+        }
+      })
       .then(
         (result) => {
-          //console.log(result);
           setCountries(result);
           setIsLoaded(true);
+          // console.log(token);
         },
         (error) => {
           setError(error);
@@ -31,9 +42,15 @@ function Countries(props) {
 
   // DELETE
   const fetchCountries = async () => {
-    await axios.get(`http://localhost:8000/api/countries`).then(({ data }) => {
-      setCountries(data);
-    });
+    let h = { Accept: "application/json", Authorization: `Bearer ${token}` };
+    await axios
+      .get(`http://localhost:8000/api/countries`, {
+        headers: h,
+        credentials: "include",
+      })
+      .then(({ data }) => {
+        setCountries(data);
+      });
   };
   const deleteCountry = async (id) => {
     const isConfirm = await Swal.fire({
@@ -53,7 +70,12 @@ function Countries(props) {
     }
 
     await axios
-      .delete(`http://localhost:8000/api/countries/${id}`)
+      .delete(`http://localhost:8000/api/countries/${id}`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         Swal.fire({
           icon: "success",

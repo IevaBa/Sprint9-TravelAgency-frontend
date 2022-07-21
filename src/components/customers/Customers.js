@@ -9,16 +9,27 @@ function Customers() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [customers, setCustomers] = useState([]);
   const navigate = useNavigate();
+  const [token, _] = useState(localStorage.getItem("token"));
 
   // LIST CUSTOMERS
   useEffect(() => {
-    fetch("http://localhost:8000/api/customers")
-      .then((res) => res.json())
+    if (!token) return navigate("/login");
+    let h = { Accept: "application/json", Authorization: `Bearer ${token}` };
+    fetch("http://localhost:8000/api/customers", { headers: h })
+      .then((res) => {
+        if (!res.ok) {
+          // 401
+          setError(res);
+          setIsLoaded(true);
+        } else {
+          return res.json();
+        }
+      })
       .then(
         (result) => {
-          //  console.log(result);
           setCustomers(result);
           setIsLoaded(true);
+          // console.log(token);
         },
         (error) => {
           setError(error);
@@ -29,9 +40,15 @@ function Customers() {
 
   // DELETE
   const fetchCustomers = async () => {
-    await axios.get(`http://localhost:8000/api/customers`).then(({ data }) => {
-      setCustomers(data);
-    });
+    let h = { Accept: "application/json", Authorization: `Bearer ${token}` };
+    await axios
+      .get(`http://localhost:8000/api/customers`, {
+        headers: h,
+        credentials: "include",
+      })
+      .then(({ data }) => {
+        setCustomers(data);
+      });
   };
   const deleteCustomer = async (id) => {
     const isConfirm = await Swal.fire({
@@ -51,7 +68,12 @@ function Customers() {
     }
 
     await axios
-      .delete(`http://localhost:8000/api/customers/${id}`)
+      .delete(`http://localhost:8000/api/customers/${id}`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         Swal.fire({
           icon: "success",

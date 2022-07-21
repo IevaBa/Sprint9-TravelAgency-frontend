@@ -11,12 +11,18 @@ export default function AddHotel() {
   const [country_id, setCountry] = useState("");
   const [countries, setCountries] = useState([]);
   const [validationError, setValidationError] = useState({});
+  const [token, _] = useState(localStorage.getItem("token"));
 
   const navigate = useNavigate();
 
   // Fetch countries
   useEffect(() => {
-    fetch("http://localhost:8000/api/countries")
+    fetch("http://localhost:8000/api/countries", {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((result) => {
         //  console.log(result);
@@ -36,7 +42,12 @@ export default function AddHotel() {
     formData.append("country_id", country_id);
 
     await axios
-      .post(`http://localhost:8000/api/hotels`, formData)
+      .post(`http://localhost:8000/api/hotels`, formData, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         Swal.fire({
           icon: "success",

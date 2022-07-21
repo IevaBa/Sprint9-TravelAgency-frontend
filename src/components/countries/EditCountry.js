@@ -10,6 +10,7 @@ export default function EditCountry() {
   const [title, setTitle] = useState({});
   const [season, setSeason] = useState({});
   const [validationError, setValidationError] = useState({});
+  const [token, _] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
     fetchCountry();
@@ -18,7 +19,12 @@ export default function EditCountry() {
 
   const fetchCountry = async () => {
     await axios
-      .get(`http://localhost:8000/api/countries/${id}`)
+      .get(`http://localhost:8000/api/countries/${id}`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         const { title, season } = data;
         setTitle(title);
@@ -35,7 +41,12 @@ export default function EditCountry() {
     formData.append("season", season);
 
     await axios
-      .post(`http://localhost:8000/api/countries/${id}`, formData)
+      .post(`http://localhost:8000/api/countries/${id}`, formData, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         Swal.fire({
           icon: "success",

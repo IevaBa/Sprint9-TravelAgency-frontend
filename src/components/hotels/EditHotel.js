@@ -14,6 +14,7 @@ export default function EditHotel() {
   const [countries, setCountries] = useState([]);
   const [image, setImage] = useState(null);
   const [validationError, setValidationError] = useState({});
+  const [token, _] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
     fetchHotels();
@@ -22,7 +23,12 @@ export default function EditHotel() {
 
   // Fetch countries
   useEffect(() => {
-    fetch("http://localhost:8000/api/countries")
+    fetch("http://localhost:8000/api/countries", {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((result) => {
         //  console.log(result);
@@ -32,7 +38,12 @@ export default function EditHotel() {
 
   const fetchHotels = async () => {
     await axios
-      .get(`http://localhost:8000/api/hotels/${id}`)
+      .get(`http://localhost:8000/api/hotels/${id}`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         const { title, price, days, country_id } = data;
         setTitle(title);
@@ -60,7 +71,12 @@ export default function EditHotel() {
     }
 
     await axios
-      .post(`http://localhost:8000/api/hotels/${id}`, formData)
+      .post(`http://localhost:8000/api/hotels/${id}`, formData, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         Swal.fire({
           icon: "success",

@@ -12,6 +12,7 @@ import EditCustomer from "./components/customers/EditCustomer";
 import EditHotel from "./components/hotels/EditHotel";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import SearchHotel from "./components/hotels/SearchHotel";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/hotels" element={<Hotels />} />
         <Route path="/hotels/add" element={<AddHotel />} />
         <Route path="/hotels/edit/:id" element={<EditHotel />} />
+        <Route path="/search" element={<SearchHotel />} />
         <Route path="/customers" element={<Customers />} />
         <Route path="/customers/add" element={<AddCustomer />} />
         <Route path="/customers/edit/:id" element={<EditCustomer />} />

@@ -26,6 +26,7 @@ export default function Login() {
     const loginInfo = await loginUser({ email, password });
     setToken(loginInfo["authorisation"]["token"]);
     localStorage.setItem("token", loginInfo["authorisation"]["token"]);
+    window.location.reload();
   };
   return (
     <div className="login-wrapper w-100 d-flex align-items-center justify-content-center">

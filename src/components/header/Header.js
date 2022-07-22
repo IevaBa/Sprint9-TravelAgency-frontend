@@ -7,6 +7,7 @@ const Header = () => {
   const nav = useNavigate();
   function logout() {
     localStorage.clear();
+    _(false);
     nav("/login");
   }
 
@@ -14,18 +15,34 @@ const Header = () => {
     <nav className="navbar bg-light border-bottom border-5  p-2 fs-4 ">
       <div className="nav-header bg-light">
         <ul className="header nav ">
-          <li className="nav-item">
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? "a nav-link active text-secondary fw-bold"
-                  : "a nav-link text-secondary"
-              }
-              to="/"
-            >
-              Travel Agency
-            </NavLink>
-          </li>
+          {!token && (
+            <>
+              <li className="nav-item">
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? "a nav-link active text-secondary fw-bold"
+                      : "a nav-link text-secondary"
+                  }
+                  to="/"
+                >
+                  Travel Agency
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? "a nav-link active text-secondary fw-bold"
+                      : "a nav-link text-secondary"
+                  }
+                  to="/search"
+                >
+                  Search Hotel
+                </NavLink>
+              </li>
+            </>
+          )}
           {token && (
             <>
               <li className="nav-item">

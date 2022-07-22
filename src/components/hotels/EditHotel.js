@@ -17,6 +17,7 @@ export default function EditHotel() {
   const [token, _] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
+    if (!token) return navigate("/login");
     fetchHotels();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

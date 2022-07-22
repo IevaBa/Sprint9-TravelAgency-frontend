@@ -17,6 +17,7 @@ export default function AddHotel() {
 
   // Fetch countries
   useEffect(() => {
+    if (!token) return navigate("/login");
     fetch("http://localhost:8000/api/countries", {
       headers: {
         Accept: "application/json",

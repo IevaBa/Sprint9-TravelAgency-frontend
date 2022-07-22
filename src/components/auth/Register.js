@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Register() {
   useEffect(() => {
     if (localStorage.getItem("user-info")) {
-      navigate("/hotels");
+      navigate("/");
     }
   }, []);
 
@@ -28,7 +28,7 @@ function Register() {
     result = await result.json();
     //console.log("result", result);
     localStorage.setItem("user-info", JSON.stringify(result));
-    navigate("/hotels");
+    navigate("/");
   }
 
   return (

@@ -13,7 +13,7 @@ function Hotels(props) {
 
   // LIST HOTELS
   useEffect(() => {
-    if (!token) return navigate("/login");
+    //if (!token) return navigate("/login");
     let h = { Accept: "application/json", Authorization: `Bearer ${token}` };
     fetch("http://localhost:8000/api/hotels", { headers: h })
       .then((res) => {
@@ -50,6 +50,7 @@ function Hotels(props) {
       });
   };
   const deleteHotel = async (id) => {
+    if (!token) return navigate("/login");
     const isConfirm = await Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -99,12 +100,14 @@ function Hotels(props) {
   } else {
     return (
       <div>
-        <button
-          className="btn btn-success col-md-4 offset-md-4 py-2 mt-4 my-2"
-          onClick={() => navigate("/hotels/add")}
-        >
-          Add Hotel
-        </button>
+        {token && (
+          <button
+            className="btn btn-success col-md-4 offset-md-4 py-2 mt-4 my-2"
+            onClick={() => navigate("/hotels/add")}
+          >
+            Add Hotel
+          </button>
+        )}
         <div className="container">
           <div className="row">
             <div className="col-sm d-flex align-items-center justify-content-center flex-wrap p-3 ">
@@ -133,17 +136,19 @@ function Hotels(props) {
                       <span className="fw-bold">{hotel.country.season}</span>
                     </p>
                   </div>
-                  <div className="d-flex justify-content-center mt-2">
-                    <Link to={"/hotels/edit/" + hotel.id}>
-                      <button className="btn btn-primary">Update</button>
-                    </Link>
-                    <button
-                      className="btn btn-danger ms-3"
-                      onClick={() => deleteHotel(hotel.id)}
-                    >
-                      Delete
-                    </button>
-                  </div>
+                  {token && (
+                    <div className="d-flex justify-content-center mt-2">
+                      <Link to={"/hotels/edit/" + hotel.id}>
+                        <button className="btn btn-primary">Update</button>
+                      </Link>
+                      <button
+                        className="btn btn-danger ms-3"
+                        onClick={() => deleteHotel(hotel.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

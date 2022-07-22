@@ -18,7 +18,7 @@ export default function Login() {
 
   // Login priklauso nuo tokeno
   useEffect(() => {
-    if (token) return navigate("/hotels");
+    if (token) return navigate("/");
   }, [token]);
 
   const handleSubmit = async (event) => {

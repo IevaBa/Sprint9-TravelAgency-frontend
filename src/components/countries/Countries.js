@@ -17,7 +17,7 @@ function Countries(props) {
   useEffect(() => {
     if (!token) return navigate("/login");
     let h = { Accept: "application/json", Authorization: `Bearer ${token}` };
-    fetch("https://travelagency-laravel.herokuapp.com//api/countries", {
+    fetch("https://travelagency-laravel.herokuapp.com/api/countries", {
       headers: h,
     })
       .then((res) => {

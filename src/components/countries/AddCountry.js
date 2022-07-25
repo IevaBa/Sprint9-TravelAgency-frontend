@@ -20,12 +20,16 @@ function AddCountry() {
     formData.append("season", season);
 
     await axios
-      .post(`http://localhost:8000/api/countries`, formData, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(
+        `https://travelagency-laravel.herokuapp.com/api/countries`,
+        formData,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then(({ data }) => {
         Swal.fire({
           icon: "success",

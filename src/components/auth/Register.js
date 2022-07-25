@@ -17,14 +17,17 @@ function Register() {
   async function signUp() {
     let item = { name, password, email };
     //console.log(item);
-    let result = await fetch("http://localhost:8000/api/register", {
-      method: "POST",
-      body: JSON.stringify(item),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
+    let result = await fetch(
+      "https://travelagency-laravel.herokuapp.com/api/register",
+      {
+        method: "POST",
+        body: JSON.stringify(item),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
     result = await result.json();
     //console.log("result", result);
     localStorage.setItem("user-info", JSON.stringify(result));

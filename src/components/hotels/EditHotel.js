@@ -24,7 +24,7 @@ export default function EditHotel() {
 
   // Fetch countries
   useEffect(() => {
-    fetch("http://localhost:8000/api/countries", {
+    fetch("https://travelagency-laravel.herokuapp.com/api/countries", {
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
@@ -39,7 +39,7 @@ export default function EditHotel() {
 
   const fetchHotels = async () => {
     await axios
-      .get(`http://localhost:8000/api/hotels/${id}`, {
+      .get(`https://travelagency-laravel.herokuapp.com/api/hotels/${id}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -72,12 +72,16 @@ export default function EditHotel() {
     }
 
     await axios
-      .post(`http://localhost:8000/api/hotels/${id}`, formData, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(
+        `https://travelagency-laravel.herokuapp.com/api/hotels/${id}`,
+        formData,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then(({ data }) => {
         Swal.fire({
           icon: "success",

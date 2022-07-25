@@ -15,7 +15,9 @@ function Hotels(props) {
   useEffect(() => {
     //if (!token) return navigate("/login");
     let h = { Accept: "application/json", Authorization: `Bearer ${token}` };
-    fetch("http://localhost:8000/api/hotels", { headers: h })
+    fetch("https://travelagency-laravel.herokuapp.com/api/hotels", {
+      headers: h,
+    })
       .then((res) => {
         if (!res.ok) {
           // 401
@@ -42,7 +44,7 @@ function Hotels(props) {
   const fetchHotels = async () => {
     let h = { Accept: "application/json", Authorization: `Bearer ${token}` };
     await axios
-      .get(`http://localhost:8000/api/hotels`, {
+      .get(`https://travelagency-laravel.herokuapp.com/api/hotels`, {
         headers: h,
       })
       .then(({ data }) => {
@@ -68,7 +70,7 @@ function Hotels(props) {
     }
 
     await axios
-      .delete(`http://localhost:8000/api/hotels/${id}`, {
+      .delete(`https://travelagency-laravel.herokuapp.com/api/hotels/${id}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -120,7 +122,10 @@ function Hotels(props) {
                     className="card-img-top rounded mx-auto d-block"
                     variant="top"
                     alt="hotel_image"
-                    src={"http://localhost:8000/" + hotel.image}
+                    src={
+                      "https://travelagency-laravel.herokuapp.com/" +
+                      hotel.image
+                    }
                     style={{ width: "25rem", height: "15rem" }}
                   />
                   <div className="d-flex justify-content-between mt-3 text-align">

@@ -18,7 +18,7 @@ export default function AddHotel() {
   // Fetch countries
   useEffect(() => {
     if (!token) return navigate("/login");
-    fetch("http://localhost:8000/api/countries", {
+    fetch("https://travelagency-laravel.herokuapp.com/api/countries", {
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
@@ -43,7 +43,7 @@ export default function AddHotel() {
     formData.append("country_id", country_id);
 
     await axios
-      .post(`http://localhost:8000/api/hotels`, formData, {
+      .post(`https://travelagency-laravel.herokuapp.com/api/hotels`, formData, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,

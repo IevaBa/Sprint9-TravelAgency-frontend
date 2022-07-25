@@ -17,7 +17,9 @@ function Countries(props) {
   useEffect(() => {
     if (!token) return navigate("/login");
     let h = { Accept: "application/json", Authorization: `Bearer ${token}` };
-    fetch("http://localhost:8000/api/countries", { headers: h })
+    fetch("https://travelagency-laravel.herokuapp.com//api/countries", {
+      headers: h,
+    })
       .then((res) => {
         if (!res.ok) {
           // 401
@@ -44,7 +46,7 @@ function Countries(props) {
   const fetchCountries = async () => {
     let h = { Accept: "application/json", Authorization: `Bearer ${token}` };
     await axios
-      .get(`http://localhost:8000/api/countries`, {
+      .get(`https://travelagency-laravel.herokuapp.com/api/countries`, {
         headers: h,
         credentials: "include",
       })
@@ -70,12 +72,15 @@ function Countries(props) {
     }
 
     await axios
-      .delete(`http://localhost:8000/api/countries/${id}`, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .delete(
+        `https://travelagency-laravel.herokuapp.com/api/countries/${id}`,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then(({ data }) => {
         Swal.fire({
           icon: "success",

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 async function loginUser(credentials) {
-  return fetch("http://localhost:8000/api/login", {
+  return fetch("https://travelagency-laravel.herokuapp.com/api/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),

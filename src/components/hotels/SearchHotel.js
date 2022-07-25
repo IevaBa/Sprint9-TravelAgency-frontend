@@ -9,7 +9,9 @@ function SearchHotel() {
   async function search(key) {
     console.log(key);
 
-    let result = await fetch("http://localhost:8000/api/search/" + key);
+    let result = await fetch(
+      "https://travelagency-laravel.herokuapp.com/api/search/" + key
+    );
     result = await result.json();
     console.log(result);
     setHotels(result);
@@ -35,7 +37,7 @@ function SearchHotel() {
               className="card-img-top rounded mx-auto d-block"
               variant="top"
               alt="hotel_image"
-              src={"http://localhost:8000/" + hotel.image}
+              src={"https://travelagency-laravel.herokuapp.com/" + hotel.image}
               style={{ width: "25rem", height: "15rem" }}
             />
             <div className="d-flex justify-content-between mt-3 text-align">

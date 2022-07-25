@@ -17,7 +17,7 @@ function AddCustomer(props) {
 
   // Fetch hotels
   useEffect(() => {
-    fetch("http://localhost:8000/api/hotels", {
+    fetch("https://travelagency-laravel.herokuapp.com/api/hotels", {
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
@@ -41,12 +41,16 @@ function AddCustomer(props) {
     formData.append("hotel_id", hotel_id);
 
     await axios
-      .post(`http://localhost:8000/api/customers`, formData, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(
+        `https://travelagency-laravel.herokuapp.com/api/customers`,
+        formData,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then(({ data }) => {
         Swal.fire({
           icon: "success",

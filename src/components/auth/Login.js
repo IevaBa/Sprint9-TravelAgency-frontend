@@ -26,6 +26,7 @@ export default function Login() {
     const loginInfo = await loginUser({ email, password });
     setToken(loginInfo["authorisation"]["token"]);
     localStorage.setItem("token", loginInfo["authorisation"]["token"]);
+    localStorage.setItem("username", loginInfo["user"]["name"]);
     window.location.reload();
   };
   return (

@@ -117,7 +117,10 @@ const Header = () => {
             </>
           )}
           {token && (
-            <li className="text-center">
+            <li className="text-center d-flex">
+              <div className="me-4 align-items-center justify-content-center text-secondary">
+                Welcome, {localStorage.getItem("username")} !
+              </div>
               <button className="btn btn-secondary" onClick={logout}>
                 Logout
               </button>

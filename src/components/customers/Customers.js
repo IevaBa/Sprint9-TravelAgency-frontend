@@ -15,7 +15,7 @@ function Customers() {
   useEffect(() => {
     if (!token) return navigate("/login");
     let h = { Accept: "application/json", Authorization: `Bearer ${token}` };
-    fetch("https://travelagency-laravel.herokuapp.com/api/customers", {
+    fetch("/api/customers", {
       headers: h,
     })
       .then((res) => {
@@ -44,7 +44,7 @@ function Customers() {
   const fetchCustomers = async () => {
     let h = { Accept: "application/json", Authorization: `Bearer ${token}` };
     await axios
-      .get(`https://travelagency-laravel.herokuapp.com/api/customers`, {
+      .get(`/api/customers`, {
         headers: h,
         credentials: "include",
       })
@@ -70,15 +70,12 @@ function Customers() {
     }
 
     await axios
-      .delete(
-        `https://travelagency-laravel.herokuapp.com/api/customers/${id}`,
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .delete(`/api/customers/${id}`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         Swal.fire({
           icon: "success",

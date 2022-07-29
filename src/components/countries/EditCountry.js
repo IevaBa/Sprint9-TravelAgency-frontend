@@ -19,7 +19,7 @@ export default function EditCountry() {
 
   const fetchCountry = async () => {
     await axios
-      .get(`https://travelagency-laravel.herokuapp.com/api/countries/${id}`, {
+      .get(`/api/countries/${id}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -41,16 +41,12 @@ export default function EditCountry() {
     formData.append("season", season);
 
     await axios
-      .post(
-        `https://travelagency-laravel.herokuapp.com/api/countries/${id}`,
-        formData,
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .post(`/api/countries/${id}`, formData, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         Swal.fire({
           icon: "success",

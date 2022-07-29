@@ -70,7 +70,7 @@ function Hotels(props) {
     }
 
     await axios
-      .delete(`https://travelagency-laravel.herokuapp.com/api/hotels/${id}`, {
+      .delete(`/api/hotels/${id}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -122,10 +122,7 @@ function Hotels(props) {
                     className="card-img-top rounded mx-auto d-block"
                     variant="top"
                     alt="hotel_image"
-                    src={
-                      "https://travelagency-laravel.herokuapp.com/" +
-                      hotel.image
-                    }
+                    src={"/" + hotel.image}
                     style={{ width: "25rem", height: "15rem" }}
                   />
                   <div className="d-flex justify-content-between mt-3 text-align">
